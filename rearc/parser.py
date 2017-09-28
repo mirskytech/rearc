@@ -11,38 +11,55 @@ class GCodeParser(Parser):
     START = 'e'
 
     PRECEDENCE = (
-        (RIGHT, 'UMINUS'),
-        (LEFT, 'TIMES', 'DIVIDE'),
-        (LEFT, 'PLUS', 'MINUS'),
+        # (RIGHT, 'UMINUS'),
+        # (LEFT, 'TIMES', 'DIVIDE'),
+        # (LEFT, 'PLUS', 'MINUS'),
     )
 
-    @attach('e : LPAREN e RPAREN')
-    def brackets(self, lparen, expr, rparen):
-        return expr
+    @attach('e : GCODE axes')
+    def expression(self, gcode, axes):
+        print("gexpression: {}|{}".format(gcode, axes))
 
-    @attach('e : e PLUS e')
-    def addition(self, left, op, right):
-        return left + right
+    @attach('gcode : GCODE')
+    def gcode(self, gcode):
+        return gcode
 
-    @attach('e : e MINUS e')
-    def subtract(self, left, op, right):
-        return left - right
+    @attach('axes : axis | axes')
+    def axes(self, axis):
+        return axis
 
-    @attach('e : e TIMES e')
-    def multiply(self, left, op, right):
-        return left * right
+    @attach('axis : AXIS')
+    def axis(self, axis):
+        return axis
 
-    @attach('e : e DIVIDE e')
-    def division(self, left, op, right):
-        return left / right
 
-    @attach('e : MINUS e', prec_symbol='UMINUS')
-    def negate(self, minus, expr):
-        return -expr
-
-    @attach('e : INTEGER')
-    def number(self, num):
-        return int(num)
+    # @attach('e : LPAREN e RPAREN')
+    # def brackets(self, lparen, expr, rparen):
+    #     return expr
+    #
+    # @attach('e : e PLUS e')
+    # def addition(self, left, op, right):
+    #     return left + right
+    #
+    # @attach('e : e MINUS e')
+    # def subtract(self, left, op, right):
+    #     return left - right
+    #
+    # @attach('e : e TIMES e')
+    # def multiply(self, left, op, right):
+    #     return left * right
+    #
+    # @attach('e : e DIVIDE e')
+    # def division(self, left, op, right):
+    #     return left / right
+    #
+    # @attach('e : MINUS e', prec_symbol='UMINUS')
+    # def negate(self, minus, expr):
+    #     return -expr
+    #
+    # @attach('e : INTEGER')
+    # def number(self, num):
+    #     return int(num)
 
 """
 $ python example.py

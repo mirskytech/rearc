@@ -15,17 +15,11 @@ def main(args=None):
     click.echo("See click documentation at http://click.pocoo.org/")
 
     parser = GCodeParser()
-    problems = [
-            ('2+3*4-4', 10),
-            ('-4', -4),
-            ('-4 * 2', -8),
-            ('-2 * - (1 + 3)', 4),
-            ('6 / 2 * 4 - 8 * 1', 4),
+    examples = [
+        'G123 X1 X1'
         ]
-    for problem, answer in problems:
-        result = parser.parse(problem)
-        print(problem, '=', result, ';', result == answer)
-
+    for example in examples:
+        result = parser.parse(example)
 
 if __name__ == "__main__":
     main()
