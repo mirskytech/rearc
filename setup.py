@@ -13,12 +13,11 @@ with open('HISTORY.rst') as history_file:
 
 requirements = [
     'Click>=6.0',
-    'antlr4-python3-runtime'
+    'purplex==0.2.4'
 ]
 
 setup_requirements = [
-    'pytest-runner',
-    'setuptools-antlr'
+    'pytest-runner'
 ]
 
 test_requirements = [
