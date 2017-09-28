@@ -24,9 +24,13 @@ class GCodeParser(Parser):
     def gcode(self, gcode):
         return gcode
 
-    @attach('axes : axis | axes')
+    @attach('axes : axis')
     def axes(self, axis):
         return axis
+
+    @attach('axes : axis *')
+    def maxes(self, maxes):
+        return maxes
 
     @attach('axis : AXIS')
     def axis(self, axis):
